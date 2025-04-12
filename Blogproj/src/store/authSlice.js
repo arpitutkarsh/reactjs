@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
-
+import { createSlice } from "@reduxjs/toolkit";  //to create a slice we need to import createslice
+//createSlice is used to create slice
 const initialState = {
-    status: false,
-    userData: null
+    status: false, //it is by default false as user is not authenticated 
+    userData: null //it is null as the user is not authenticated and therefore there is no userData
 }
 const authSlice = createSlice({
     name: "auth",
