@@ -10,8 +10,9 @@ function App() {
   
   //Step:1 We will create a loading state as we have to fetch some data from database and it may take  time and on the basis of loading we can do conditional rendering
   const [loading, setLoading] = useState(true)
+  
   const dispatch = useDispatch()
-
+//useEffect is used to perform side effects in functional components as the webpage is loaded
   useEffect(() => {
     authService.getCurrentUser()
     .then((userData) => {
