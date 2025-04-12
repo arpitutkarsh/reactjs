@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 function Header() {
   const authStatus = useSelector((state) => state.auth.status)
-  const navigate = useNavigate()
+  const navigate = useNavigate() //useNavigate() is used to navigate to different routes programmatically
 
   //whenever this type of navigation bar is formed then usually an array is created to loop upon
   const navItems = [
