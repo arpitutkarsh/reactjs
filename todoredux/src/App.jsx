@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div>
-      <h1>Todo using Redux</h1>
+      <h1 className='mb-2'>Todo using Redux</h1>
       <AddTodo/>
       <Todos/>
       

@@ -26,7 +26,7 @@ export const todoSlice = createSlice({
             // find the todo by id
             const todo = state.todos.id === action.payload.id
             // update the text
-            todo.text = action.payload.text
+            todo.text = action.payload
         },
     }
 })

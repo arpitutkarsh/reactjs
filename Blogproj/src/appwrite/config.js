@@ -1,5 +1,8 @@
 import conf from "../conf/conf";
 import {Client, ID, Databases, Storage, Query} from "appwrite";  //this line is from Appwrite documentation
+import { useSelector } from "react-redux";
+import { useState } from "react";
+//const userData = useSelector((state) => state.auth.status);
 
 export class Service{
     client = new Client();
@@ -12,23 +15,24 @@ export class Service{
         this.databases = new Databases(this.client);
         this.bucket = new Storage(this.client);
     }
-
-    async createPost({title, slug, content, featuredImage, status, userId}){
+    
+    async createPost({title, slug, content, featuredImage, status, userid}){
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
+                
                 slug, //we will use this as a document id
                 {
                     title,
-                    content,
+                    content : "<p>My Content</p>",
                     featuredImage,
                     status,
-                    userId,
+                    userid,
                 }
             )
         } catch (error) {
-            console.log(`Appwrite Service Error in creating Post : ${error}`)
+            console.log(`Appwrite Service Error in creating Post : ${error} `)
         }
     }
 
@@ -50,7 +54,7 @@ export class Service{
         }
     }
 
-    async daletePost(slug){
+    async deletePost(slug){
         try {
             await this.databases.deleteDocument(
                 conf.appwriteDatabaseId,
@@ -70,21 +74,20 @@ export class Service{
             return await this.databases.getDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                slug
+                slug,
             )
         } catch (error) {
-            console.log(`Unable to get Post: ${error}`)
+            console.log(`Unable to get post ${error}`)
             return false
         }
     }
 
     async getPosts(queries = [Query.equal("status", "active")]){
         try {
-            await this.databases.listDocuments(
+            return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 queries,
-                
             )
         } catch (error) {
             console.log(`Error : ${error}`)
@@ -93,7 +96,7 @@ export class Service{
     }
 
     //file upload service
-    async uploadFIle(file){
+    async uploadFile(file){
         try {
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
